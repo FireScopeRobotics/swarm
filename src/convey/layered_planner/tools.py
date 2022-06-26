@@ -9,13 +9,11 @@ from matplotlib.patches import Polygon
 
 # ### Helper functions
 
-def draw_map(obstacles):
+# Sets the matplot lib size to world bound and draw each obstacle patch on the plot
+
+def draw_map(obstacles, world_bounds_x = [-2.5, 2.5],  world_bounds_y = [-2.5, 2.5]):
     # Obstacles. An obstacle is represented as a convex hull of a number of points. 
     # First row is x, second is y (position of vertices)
-
-    # Bounds on world
-    world_bounds_x = [-2.5, 2.5]
-    world_bounds_y = [-2.5, 2.5]
 
     # Draw obstacles
     ax = plt.gca()
