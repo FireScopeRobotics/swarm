@@ -118,7 +118,7 @@ def rrt_path(obstacles, xy_start, xy_goal, params):
             continue
         
         if params.animate:
-            # plt.plot(xy[0], xy[1], 'ro', color='k')
+            # plt.plot(xy[0], xy[1], 'o', color='k')
             plt.plot(new_node.p[0], new_node.p[1], 'bo',color = 'blue', markersize=5) # VERTICES
             plt.plot([closest_node.p[0], new_node.p[0]], [closest_node.p[1], new_node.p[1]], color='blue') # EDGES
             plt.draw()
@@ -209,12 +209,12 @@ def ShortenPath(P, obstacles, smoothiters=10):
             iters = iters + 1
             continue
 #         print round(l[i],2), round(s1,2), round(l[i+1],2)
-#         plt.plot(P[i,0], P[i,1], 'ro', markersize=10, color='red')
-#         plt.plot(gamma1[0], gamma1[1], 'ro', markersize=10, color='green')
-#         plt.plot(P[i+1,0], P[i+1,1], 'ro', markersize=10, color='blue')
-#         plt.plot(P[j,0], P[j,1], 'ro', markersize=10, color='red')
-#         plt.plot(gamma2[0], gamma2[1], 'ro', markersize=10, color='green')
-#         plt.plot(P[j+1,0], P[j+1,1], 'ro', markersize=10, color='blue')
+#         plt.plot(P[i,0], P[i,1], 'o', markersize=10, color='red')
+#         plt.plot(gamma1[0], gamma1[1], 'o', markersize=10, color='green')
+#         plt.plot(P[i+1,0], P[i+1,1], 'o', markersize=10, color='blue')
+#         plt.plot(P[j,0], P[j,1], 'o', markersize=10, color='red')
+#         plt.plot(gamma2[0], gamma2[1], 'o', markersize=10, color='green')
+#         plt.plot(P[j+1,0], P[j+1,1], 'o', markersize=10, color='blue')
 #         plt.plot([gamma1[0], gamma2[0]], [gamma1[1], gamma2[1]], color='k', linewidth=5)
 #         print round(l[j],2), round(s2,2), round(l[j+1],2)
         P = np.vstack([P[:(i+1),:], gamma1, gamma2, P[(j+1):,:]])

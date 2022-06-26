@@ -17,6 +17,7 @@ def move_obstacles(obstacles, params):
     obstacles[-1] += np.array([0.0, 0.01]) * params.drone_vel
     return obstacles
 
+# configuration params
 class Params:
     def __init__(self):
         self.animate = 1 # show RRT construction, set 0 to reduce time of the RRT algorithm
@@ -45,6 +46,7 @@ class Robot:
         self.leader = False
         self.vel_array = []
 
+# updates robot setpoitn route, velocity from potential grid and gradient planner
     def local_planner(self, obstacles, params):
         obstacles_grid = grid_map(obstacles)
         self.f = combined_potential(obstacles_grid, self.sp_global, params.influence_radius)
@@ -110,21 +112,52 @@ max_dists_array = []
 if __name__ == '__main__':
     plt.figure(figsize=(10,10))
     draw_map(obstacles)
-    plt.plot(xy_start[0],xy_start[1],'bo',color='red', markersize=20, label='start')
-    plt.plot(xy_goal[0], xy_goal[1],'bo',color='green', markersize=20, label='goal')
+    plt.plot(xy_start[0],xy_start[1],color='red', markersize=20, label='start')
+    plt.plot(xy_goal[0], xy_goal[1],color='green', markersize=20, label='goal')
 
-    P_long = rrt_path(obstacles, xy_start, xy_goal, params)
+    # pass in the path instead fo using RRT
+    
+    P = np.array([[ 1.5,        -1.4       ],
+                [ 1.56253855, -1.53748091],
+                [ 1.60423092,-1.62913484],
+                [ 1.41396189, -1.66648865],
+                [ 1.09274323, -1.57042937],
+                [ 0.44432792, -1.63513007],
+                [-0.08844011, -1.06158115],
+                [ 0.05630422, -0.46986452],
+                [ 0.11570076, -0.12651434],
+                [-0.12021113,  0.40439351],
+                [ 0.86717357,  1.46305047],
+                [ 1.52035858,  1.29936696],
+                [ 1.4,         0.9       ]])
+    
+
+    
+    # print(str(P_long))
     # plt.plot(P_long[:,0], P_long[:,1], linewidth=3, color='green', label='Global planner path')
     # plt.pause(1.0)
-    P = ShortenPath(P_long, obstacles, smoothiters=30) # P = [[xN, yN], ..., [x1, y1], [x0, y0]]
+    # P = ShortenPath(P_long, obstacles, smoothiters=30) # P = [[xN, yN], ..., [x1, y1], [x0, y0]]
 
-    traj_global = waypts2setpts(P, params); P = np.vstack([P, xy_start])
+    # waypoints to setpoints breaks down the spline into smaller coordinates
+    # think of it as an interpolation function
+    # the "detailedness of the setpoint depends on the robot's operating speed"
+    traj_global = waypts2setpts(P, params)
+
+    P = np.vstack([P, xy_start])
     plt.plot(P[:,0], P[:,1], linewidth=3, color='orange', label='Global planner path')
-    plt.pause(0.1)
+    plt.pause(3)
 
-    sp_ind = 0
-    robot1.route = np.array([traj_global[0,:]])
+    # traj_global = P
+    sp_ind = 0 #setpoint index
+    robot1.route = np.array([traj_global[0,:]]) #y values
     robot1.sp = robot1.route[-1,:]
+    
+    #1.4,0.9 (first )
+    print("=======================================")
+    print(robot1.route)
+    print(robot1.sp)
+    print("=======================================")
+
 
     followers_sp = formation(params.num_robots, leader_des=robot1.sp, v=np.array([0,-1.0]), l=0.3)
     for i in range(len(followers_sp)):
@@ -139,7 +172,8 @@ if __name__ == '__main__':
         if params.moving_obstacles: obstacles = move_obstacles(obstacles, params) # change poses of some obstacles on the map
 
         # leader's setpoint from global planner
-        robot1.sp_global = traj_global[sp_ind,:]
+        robot1.sp_global = traj_global[sp_ind,:]         # IMPORTANT: based on the joystick, we want to pass in a different traj_global 
+
         # correct leader's pose with local planner
         robot1.local_planner(obstacles, params)
 
@@ -182,9 +216,9 @@ if __name__ == '__main__':
         plt.plot(robot1.route[:,0], robot1.route[:,1], linewidth=2, color='green', label="Robot's path, corrected with local planner", zorder=10)
         # for robot in robots[1:]: plt.plot(robot.route[:,0], robot.route[:,1], '--', linewidth=2, color='green', zorder=10)
         plt.plot(P[:,0], P[:,1], linewidth=3, color='orange', label='Global planner path')
-        for robot in robots[:1]: plt.plot(robot.sp_global[0], robot.sp_global[1], 'ro', color='green', markersize=7, label='Global planner setpoint')
-        plt.plot(xy_start[0],xy_start[1],'bo',color='red', markersize=20, label='start')
-        plt.plot(xy_goal[0], xy_goal[1],'bo',color='green', markersize=20, label='goal')
+        for robot in robots[:1]: plt.plot(robot.sp_global[0], robot.sp_global[1], 'o', color='green', markersize=7, label='Global planner setpoint')
+        plt.plot(xy_start[0],xy_start[1],color='red', markersize=20, label='start')
+        plt.plot(xy_goal[0], xy_goal[1],color='green', markersize=20, label='goal')
         plt.legend()
         plt.draw()
         plt.pause(0.01)

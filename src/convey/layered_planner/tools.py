@@ -26,35 +26,39 @@ def draw_map(obstacles, world_bounds_x = [-2.5, 2.5],  world_bounds_y = [-2.5, 2
 def draw_gradient(f, nrows=500, ncols=500):
     skip = 10
     [x_m, y_m] = np.meshgrid(np.linspace(-2.5, 2.5, ncols), np.linspace(-2.5, 2.5, nrows))
-    [gy, gx] = np.gradient(-f);
+    [gy, gx] = np.gradient(-f)
     Q = plt.quiver(x_m[::skip, ::skip], y_m[::skip, ::skip], gx[::skip, ::skip], gy[::skip, ::skip])
 
-
+# This function splices up the input spline into goal points of equal distance
+# based on the robot's speed. 
+# traj_global is a list of set points.
 def waypts2setpts(P, params):
-	"""
-	construct a long array of setpoints, traj_global, with equal inter-distances, dx,
-	from a set of via-waypoints, P = [[x0,y0], [x1,y1], ..., [xn,yn]]
-	"""
-	V = params.drone_vel * 1.3 # [m/s], the setpoint should travel a bit faster than the robot
-	freq = params.ViconRate; dt = 1./freq
-	dx = V * dt
-	traj_global = np.array(P[-1])
-	for i in range(len(P)-1, 0, -1):
-		A = P[i]
-		B = P[i-1]
+    """
+    construct a long array of setpoints, traj_global, with equal inter-distances, dx,
+    from a set of via-waypoints, P = [[x0,y0], [x1,y1], ..., [xn,yn]]
+    """
+    V = params.drone_vel * 1.3 # [m/s], the setpoint should travel a bit faster than the robot
+    freq = params.ViconRate # vicon rate is teh sample rate
+    dt = 1./freq
+    dx = V * dt # m/s * s = m
+    traj_global = np.array(P[-1]) # last element is traj global
+    for i in range(len(P)-1, 0, -1): # traceback from the last element
+        A = P[i] #2nd last
+        B = P[i-1] # last
 
-		n = (B-A) / norm(B-A)
-		delta = n * dx
-		N = int( norm(B-A) / norm(delta) )
-		sp = A
-		traj_global = np.vstack([traj_global, sp])
-		for i in range(N):
-			sp += delta
-			traj_global = np.vstack([traj_global, sp])
-		sp = B
-		traj_global = np.vstack([traj_global, sp])
+        n = (B-A) / norm(B-A) # direction vector --> direction / magnitude
+        delta = n * dx # direction * distance setpoint travelled during time 
+                        # delta gives the position change of the setpoint
+        N = int( norm(B-A) / norm(delta) ) # How much time to finish this segment
+        sp = A
+        traj_global = np.vstack([traj_global, sp])
+        for i in range(N):
+            sp += delta
+            traj_global = np.vstack([traj_global, sp])
+        sp = B
+        traj_global = np.vstack([traj_global, sp])
 
-	return traj_global
+    return traj_global
 
 
 def formation(num_robots, leader_des, v, l):
@@ -85,8 +89,8 @@ def formation(num_robots, leader_des, v, l):
     return [des2, des3, des4]
 
 def normalize(vector):
-	if norm(vector)==0: return vector
-	return vector / norm(vector)
+    if norm(vector)==0: return vector
+    return vector / norm(vector)
 
 def poses2polygons(poses, l=0.1):
     polygons = []

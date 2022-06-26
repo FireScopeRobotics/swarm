@@ -8,7 +8,7 @@ from scipy.ndimage.morphology import distance_transform_edt as bwdist
 
 
 # Potential Fields functions
-
+# grid is in cm, with the center at nrows/2, ncols/2
 def grid_map(obstacles, nrows=500, ncols=500):
     """ Obstacles discretized map """
     grid = np.zeros((nrows, ncols));
@@ -38,12 +38,16 @@ def grid2meters(pose_grid, nrows=500, ncols=500):
         pose_meters = ( np.array(pose_grid) - np.array([ncols/2, nrows/2]) ) / 100.0
     return pose_meters
 
+# goal is sp_global
 def combined_potential(obstacles_grid, goal, influence_radius=2, attractive_coef=1./700, repulsive_coef=200, nrows=500, ncols=500):
     """ Repulsive potential """
-    goal = meters2grid(goal)
+    print("=============== goal in meters")
+    print(goal)
+    print(type(goal))
+    goal = meters2grid(goal) #converts goal from meter to cm on the obstacle grid
     d = bwdist(obstacles_grid==0)
     d2 = (d/100.) + 1 # Rescale and transform distances
-    d0 = influence_radius
+    d0 = influence_radius # how far the potential field reaches
     nu = repulsive_coef
     repulsive = nu*((1./d2 - 1./d0)**2)
     repulsive [d2 > d0] = 0
