@@ -41,9 +41,6 @@ def grid2meters(pose_grid, nrows=500, ncols=500):
 # goal is sp_global
 def combined_potential(obstacles_grid, goal, influence_radius=2, attractive_coef=1./700, repulsive_coef=200, nrows=500, ncols=500):
     """ Repulsive potential """
-    print("=============== goal in meters")
-    print(goal)
-    print(type(goal))
     goal = meters2grid(goal) #converts goal from meter to cm on the obstacle grid
     d = bwdist(obstacles_grid==0)
     d2 = (d/100.) + 1 # Rescale and transform distances

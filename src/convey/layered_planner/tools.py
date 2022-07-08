@@ -32,6 +32,30 @@ def draw_gradient(f, nrows=500, ncols=500):
 # This function splices up the input spline into goal points of equal distance
 # based on the robot's speed. 
 # traj_global is a list of set points.
+def singlewaypt2setpts(P, params):
+    V = params.drone_vel * 1.3 # [m/s], the setpoint should travel a bit faster than the robot
+    freq = params.ViconRate # vicon rate is teh sample rate
+    dt = 1./freq
+    dx = V * dt # m/s * s = m
+    vec = P[1]-P[0]
+    dist = norm(vec)
+    unit_vector = vec/dist
+    retval = []
+    curr_dist = 0
+    while curr_dist<dist:
+        retval.append(unit_vector * curr_dist + P[0])
+        curr_dist += dx
+    return retval
+def nextStepFromSingleWPT(P, params):
+    V = params.drone_vel * 1.3 # [m/s], the setpoint should travel a bit faster than the robot
+    freq = params.ViconRate # vicon rate is teh sample rate
+    dt = 1./freq
+    dx = V * dt # m/s * s = m
+    vec = P[1]-P[0]
+    dist = norm(vec)
+    unit_vector = vec/dist
+    return  unit_vector*dx + P[0]
+    
 def waypts2setpts(P, params):
     """
     construct a long array of setpoints, traj_global, with equal inter-distances, dx,
