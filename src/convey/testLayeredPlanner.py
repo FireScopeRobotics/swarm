@@ -45,14 +45,23 @@ class Robot:
         self.vel_array.append(norm(self.vel))
         self.route = np.vstack( [self.route, self.sp] )
 
+NUM_ROBOTS = 3
 #global variables
 start_pos = np.array([0,0])
+#initialize robots
 robots = []
-for i in range(3):
+for i in range(NUM_ROBOTS):
     robots.append(Robot())
+#initialize leader
 robot1 = robots[0]; robot1.leader=True
 robot1.route = np.array([start_pos]) #history of places the robot has been to
 robot1.sp = start_pos  #initialize position of robots
+#initialize followers
+followers_sp = formation(NUM_ROBOTS, leader_des=robot1.sp, v=np.array([0,-1.0]), l=0.5)
+print(followers_sp)
+for i in range(len(followers_sp)):
+  robots[i+1].sp = followers_sp[i]
+  robots[i+1].route = np.array([followers_sp[i]])
 
 mousePos = np.array([0,0], dtype = float)
 mouse_move_id = 0
@@ -87,10 +96,10 @@ if __name__ == "__main__":
   # map generator:
   # in order: bottom left, bottom right, top right, top left
   obstacles = [
-          # narrow passage
-          np.array([[2, 2], [3, 2], [3, 3], [2,3]]),
-          np.array([[-2, 1], [-1.5, 1], [-1.5, 1.5], [-2,1.5]]),
-          np.array([[-1.4, -3], [-1.5, -3], [-1.5, 0], [-1.4,0]])
+          # walls
+          np.array([[0.5, 0], [2.5, 0.], [2.5, 0.3], [0.5, 0.3]]),
+          np.array([[0.5, 0.3], [0.8, 0.3], [0.8, 1.5], [0.5, 1.5]]),
+          np.array([[0.5, 1.5], [1.5, 1.5], [1.5, 1.8], [0.5, 1.8]]),
           ]
   plt.figure(figsize=(10,10))
   draw_map(obstacles, [-5,5], [-5,5])
@@ -114,13 +123,28 @@ if __name__ == "__main__":
       pt = nextStepFromSingleWPT(P, params)
       robot1.sp_global = pt
       robot1.local_planner(obstacles, params)
+      
+      followers_sp_global = formation(params.num_robots, robot1.sp_global, v=normalize(robot1.sp_global-robot1.sp), l=0.3)
+      for i in range(len(followers_sp_global)):
+        robots[i+1].sp_global = followers_sp_global[i]
+      for p in range(len(followers_sp)): # formation poses correction with local planner
+          # robots repel from each other inside the formation
+          robots_obstacles_sp = [x for i,x in enumerate(followers_sp + [robot1.sp]) if i!=p] # all poses except the robot[p]
+          robots_obstacles = poses2polygons( robots_obstacles_sp ) # each drone is defined as a small cube for inter-robots collision avoidance
+          obstacles1 = np.array(obstacles + robots_obstacles) # combine exisiting obstacles on the map with other robots[for each i: i!=p] in formation
+          # follower robot's position correction with local planner
+          robots[p+1].local_planner(obstacles1, params)
+          followers_sp[p] = robots[p+1].sp
 
         
     plt.cla()
     draw_map(obstacles, [-5,5], [-5,5])
     plt.plot(robot1.sp[0], robot1.sp[1], '^', color='green', markersize=10, zorder=15)
+    for robot in robots[1:]: 
+      plt.plot(robot.sp[0], robot.sp[1], '^', color='blue', markersize=10, zorder=15) # robots poses
+
     if movement_flag:
       plt.plot(goal[0], goal[1], '.', color='yellow', markersize=10, zorder=15)
     plt.draw()
-    plt.pause(0.02)
+    plt.pause(0.01)
 
