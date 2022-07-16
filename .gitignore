@@ -131,3 +131,7 @@ dmypy.json
 # ROS folders
 build/
 devel/
+log/
+
+# VScode setting files
+.vscode/
