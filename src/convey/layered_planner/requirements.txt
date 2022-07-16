@@ -1,0 +1,8 @@
+backports.statistics==0.1.0
+Cython==0.29.30
+dl==0.1.0
+ipaddr==2.2.0
+keyring==18.0.1
+mypy_extensions==0.4.3
+numpy==1.23.1
+ordereddict==1.1
