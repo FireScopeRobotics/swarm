@@ -37,9 +37,9 @@ class Robot:
         self.leader = False
         self.vel_array = []
 
-# updates robot setpoitn route, velocity from potential grid and gradient planner
+# updates robot setpoint route, velocity from potential grid and gradient planner
     def local_planner(self, obstacles, params):
-        obstacles_grid = grid_map(obstacles)
+        obstacles_grid = grid_map(obstacles) # We can pass in the occupancy grid here directly instead of using the 4 point system
         self.f = combined_potential(obstacles_grid, self.sp_global, params.influence_radius)
         self.sp, self.vel = gradient_planner_next(self.sp, self.f, params)
         self.vel_array.append(norm(self.vel))
