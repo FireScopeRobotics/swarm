@@ -47,6 +47,14 @@ class Robot:
         self.vel_array = []
 
 # updates robot setpoitn route, velocity from potential grid and gradient planner
+# Idea 1:
+# Output lidar data to ros nav
+# rosnav give us the local occupancy grid for the robot
+# replace the grid_map(obstacles) with that occupancy grid
+
+# Idea 2:
+# Have Isaac Sim publish a global map (png), this will be fixed
+
     def local_planner(self, obstacles, params):
         obstacles_grid = grid_map(obstacles)
         self.f = combined_potential(obstacles_grid, self.sp_global, params.influence_radius)
