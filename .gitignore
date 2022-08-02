@@ -132,6 +132,9 @@ dmypy.json
 build/
 devel/
 log/
+.catkin_tools/
 
 # VScode setting files
 .vscode/
+
+gitkraken-amd64.deb
