@@ -133,7 +133,7 @@ build/
 devel/
 log/
 .catkin_tools/
-
+logs/
 # VScode setting files
 .vscode/
 

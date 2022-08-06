@@ -15,22 +15,18 @@ private:
     bool m_is_leader;
     int m_robot_idx;
     std::string m_robot_name;
-    this is wrong
 public:
     //api
     Robot(ros::NodeHandle n, int robot_idx);
 private:
     void publishMotorControl(float speed[2]);
-    friend void odomCallback(const nav_msgs::Odometry::ConstPtr&);
+    void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
 };
 
 //callbacks
-void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
+// void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
 
 
 
 
-
-
-
-extern Robot robot;
+// extern Robot robot;

@@ -1,4 +1,4 @@
-#include "./robot.h"
+#include "robot_worker/robot.h"
 
 Robot::Robot(ros::NodeHandle n, int robot_idx){
 
@@ -12,7 +12,8 @@ Robot::Robot(ros::NodeHandle n, int robot_idx){
     motor_control_pub = n.advertise<std_msgs::Float32MultiArray>("motorControl", 10);
 
     //sub
-    odom_sub = n.subscribe("odom", 2, odomCallback);
+    // odom_sub = n.subscribe("odom", 2, Robot::odomCallback);
+    odom_sub = n.subscribe("odom", 2, &Robot::odomCallback, this);
 }
 
 void Robot::publishMotorControl(float speed[2])
@@ -23,10 +24,7 @@ void Robot::publishMotorControl(float speed[2])
   
 }
 
-
-
-
-void odomCallback(const nav_msgs::Odometry::ConstPtr& msg)
+void Robot::odomCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {
-  ROS_INFO("%s Got odom messge with id %d", robot.m_robot_name,  msg->header.seq);
+  ROS_INFO("%s Got odom messge with id %d", m_robot_name.c_str(),  msg->header.seq);
 }
