@@ -97,7 +97,7 @@ def combined_potential(obstacles_grid, goal, influence_radius=2, attractive_coef
 #     return route
 
 
-def gradient_planner_next(current_point, f, params):
+def gradient_planner_next(current_point, f, drone_vel):
     """
     gradient_planner_next: This function computes the next_point
     given current location and potential filed function, f.
@@ -109,7 +109,7 @@ def gradient_planner_next(current_point, f, params):
     vx = np.mean(gx[ix-int(w/2) : ix+int(w/2), iy-int(w/2) : iy+int(w/2)])
     vy = np.mean(gy[ix-int(w/2) : ix+int(w/2), iy-int(w/2) : iy+int(w/2)])
     dt = 0.01 / np.linalg.norm([vx, vy])
-    V = np.array([vx, vy])*params.drone_vel
+    V = np.array([vx, vy])* drone_vel
     next_point = current_point + dt*V
 
     return next_point, V

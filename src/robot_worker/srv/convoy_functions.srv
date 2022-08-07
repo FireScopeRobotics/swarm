@@ -1,0 +1,31 @@
+uint8 function_type
+
+
+#formation
+int8 num_robots
+float32[2] leader_des
+float32[2] v
+float32 l
+
+
+#common
+float32 drone_vel
+
+
+#local_planner
+std_msgs/Float32MultiArray obstacles
+float32 influence_radius
+
+#nextStepFromSingleWPT
+std_msgs/Float32MultiArray P
+float32 ViconRate
+---
+
+#formation
+std_msgs/Float32MultiArray destinations
+
+#local_planner
+float32[2] sp
+
+#nextStepFromSingleWPT
+float32[2] nxt_pt
