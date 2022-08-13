@@ -1,3 +1,4 @@
+#0 -> formation, 1 -> nextStepFromSingleWPT, 2 -> local_planner
 uint8 function_type
 
 
@@ -8,7 +9,7 @@ float32[2] v
 float32 l
 
 
-#common
+#common to nextStepFromSingleWPT,local_planner
 float32 drone_vel
 
 
