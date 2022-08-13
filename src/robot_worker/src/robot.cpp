@@ -7,6 +7,7 @@ Robot::Robot(ros::NodeHandle n, int robot_idx){
     m_is_leader = false;
     m_robot_name = "robot_" + std::to_string(robot_idx);
 
+    m_client = n.serviceClient<robot_worker::convoy_functions>("convoy_functions");
 
     //pub
     motor_control_pub = n.advertise<std_msgs::Float32MultiArray>("motorControl", 10);

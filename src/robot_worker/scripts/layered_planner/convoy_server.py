@@ -2,7 +2,7 @@ from __future__ import print_function
 import rospy
 import numpy as np
 from std_msgs.msg import Float64
-from convoy_services.srv import convoy_functions
+from robot_worker.srv import convoy_functions
 from tools import *
 from rrt import *
 from potential_fields import *

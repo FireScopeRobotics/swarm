@@ -4,6 +4,8 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <string>
 #include <sstream>
+#include <robot_worker/convoy_functions.h>
+
 class Robot{
 private:
     //variables
@@ -11,6 +13,8 @@ private:
     ros::Publisher robot_comm_pub; //TODO: this is for communication between robots, all robots will subscribe to this so that this message will be broadcast
     ros::Subscriber odom_sub;
     ros::Subscriber robot_comm_sub;
+
+    ros::ServiceClient m_client;
 
     bool m_is_leader;
     int m_robot_idx;
