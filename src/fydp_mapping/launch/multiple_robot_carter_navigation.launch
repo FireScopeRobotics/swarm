@@ -43,13 +43,13 @@
   </group> -->
 
 
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="0 0 0 0 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="0 0 0 0 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="0 0 0 0 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="0 0 0 3.14 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="4 -1 0 3.14 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="7 3 0 3.14 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
   
 
 <!-- MOVE_BASE -->
-  <include file="$(find carter_2dnav)/launch/move_base_individual.launch" >
+  <!-- <include file="$(find carter_2dnav)/launch/move_base_individual.launch" >
     <arg name="robot_name" value="$(arg robot1)" />
   </include>
   
@@ -59,7 +59,7 @@
   
   <include file="$(find carter_2dnav)/launch/move_base_individual.launch" >
     <arg name="robot_name" value="$(arg robot3)" />
-  </include>
+  </include> -->
 
 <!-- Launching Rviz -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/launch/carter_gmapping.rviz" />
