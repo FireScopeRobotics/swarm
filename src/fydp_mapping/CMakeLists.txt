@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  multirobot_map_merge
+  gmapping
   message_generation
 )
 
