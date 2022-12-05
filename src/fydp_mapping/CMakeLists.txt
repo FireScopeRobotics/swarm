@@ -9,7 +9,6 @@ project(fydp_mapping)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  cartographer_ros
   rospy
   std_msgs
   geometry_msgs

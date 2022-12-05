@@ -63,7 +63,6 @@
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>multirobot_map_merge</exec_depend>
   <exec_depend>gmapping</exec_depend>
-  <exec_depend>cartographer_ros</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
