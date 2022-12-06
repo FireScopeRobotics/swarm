@@ -1,0 +1,6 @@
+image: isaac_warehouse_map.png
+resolution: 0.05
+origin: [-36.725, -30.975, 0.0000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
