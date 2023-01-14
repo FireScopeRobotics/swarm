@@ -12,4 +12,4 @@
 5. Source workspace. Run `roslaunch isaac_gmapping_test.launch`
 6. Source workspace. Run `roslaunch isaac_merge_multiple_map_test.launch`
 
-7. To control carter1 robot run: ` ROS_NAMESPACE=carter1 rosrun teleop_twist_keyboard teleop_twist_keyboard.py`. For controlling carter2 and carter3, use the same command but the ROS_NAMSEPACE env var should be changed accordingly. :D
+7. To control carter1 robot run: ` ROS_NAMESPACE=carter1 rosrun teleop_twist_keyboard teleop_twist_keyboard.py`. For controlling carter2 and carter3, use the same command but the ROS_NAMESPACE env var should be changed accordingly. :D
