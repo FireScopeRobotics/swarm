@@ -79,6 +79,6 @@
   </include>
 
 <!-- Launching Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find z)/rviz/carter_2dnav_multiple_robot.rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find carter_2dnav)/rviz/carter_2dnav_multiple_robot.rviz" />
 
 </launch>
