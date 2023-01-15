@@ -8,7 +8,7 @@
   <arg name="odom_topic" default="/$(arg robot_name)/odom" />
   <arg name="laser_topic" default="/$(arg robot_name)/scan" />
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base_$(arg robot_name)" output="screen">
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" ns="$(arg robot_name)" output="screen">
   
     <rosparam file="$(find carter_2dnav)/params/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
     <rosparam file="$(find carter_2dnav)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -29,7 +29,7 @@
     <remap from="cmd_vel"                                                          to="/$(arg robot_name)/cmd_vel"/>
     <remap from="odom"                                                             to="$(arg odom_topic)"/>
     <remap from="scan"                                                             to="$(arg laser_topic)"/>
-    <remap from="map"                                                              to="/map" />
+    <remap from="map"                                                              to="/$(arg robot_name)/map" />
     <remap from="/move_base_simple/goal"                                           to="/$(arg robot_name)/move_base_simple/goal" />
     <remap from="/move_base/TrajectoryPlannerROS/global_plan"                      to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/global_plan" />
     <remap from="/move_base/TrajectoryPlannerROS/local_plan"                       to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/local_plan" />
