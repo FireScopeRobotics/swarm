@@ -43,9 +43,9 @@
   </group> -->
 
 
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="-14 4 0 3.14 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="4 -1 0 3.14 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="2 11 0 3.14 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="-8 25 0 0 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="-32 8 0 0 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="13 -29 0 0 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
   
 
 <!-- MOVE_BASE -->

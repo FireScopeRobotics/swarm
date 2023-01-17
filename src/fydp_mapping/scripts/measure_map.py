@@ -26,19 +26,19 @@ def callback(msg):
     # In square meters
     mapped_footage = (occupany_map != -1).sum() * (map_res**2)
 
-    if (rospy.get_time() - start_time) < 180.0:
-        print(f"Map is: {mapped_footage} m^2")
-        print(f"Map is: {mapped_footage * 10.76391042} ft^2")
-        print("-----")
-    else:
-        print("3 mins complete: Saving map and shutting down")
-        rospy.signal_shutdown("3 mins complete: Saving map and shutting down")
+    #if (rospy.get_time() - start_time) < 180.0:
+    print(f"Map is: {mapped_footage} m^2")
+    print(f"Map is: {mapped_footage * 10.76391042} ft^2")
+    print("-----")
+    # else:
+    #     print("3 mins complete: Saving map and shutting down")
+    #     rospy.signal_shutdown("3 mins complete: Saving map and shutting down")
     
     
 def listener():
     rospy.init_node('map_measure', anonymous=True, disable_signals=True)
     
-    rospy.Subscriber("map", OccupancyGrid, callback)
+    rospy.Subscriber("/map_merge_topic", OccupancyGrid, callback)
 
     rospy.spin()
 

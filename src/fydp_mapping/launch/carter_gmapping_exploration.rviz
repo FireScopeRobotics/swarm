@@ -16,8 +16,10 @@ Panels:
         - /Image3
         - /Map5
         - /Path4
+        - /Path5
+        - /Path6
       Splitter Ratio: 0.5
-    Tree Height: 703
+    Tree Height: 555
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -239,34 +241,34 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
-      Topic: /carter1/map
+      Topic: /carter1/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
-      Topic: /carter2/map
+      Topic: /carter2/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 0.800000011920929
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
-      Topic: /carter3/map
+      Topic: /carter3/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Axes Length: 1
       Axes Radius: 0.10000000149011612
@@ -684,13 +686,13 @@ Visualization Manager:
       Marker Topic: /carter1/explore/frontiers
       Name: MarkerArray
       Namespaces:
-        frontiers: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 239; 41; 41
       Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
@@ -714,7 +716,7 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 138; 226; 52
       Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
@@ -738,7 +740,7 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 52; 101; 164
       Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
@@ -758,6 +760,22 @@ Visualization Manager:
       Shaft Length: 0.10000000149011612
       Topic: /carter3/move_base/NavfnROS/plan
       Unreliable: false
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /carter2/explore/frontiers
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /carter3/explore/frontiers
+      Name: MarkerArray
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
@@ -779,7 +797,7 @@ Visualization Manager:
       X std deviation: 0.5
       Y std deviation: 0.5
     - Class: rviz/SetGoal
-      Topic: /carter1/move_base_simple/goal
+      Topic: /carter2/move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
       Topic: /clicked_point
@@ -787,7 +805,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 58.24876403808594
+      Distance: 130.58348083496094
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -795,9 +813,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -1.5934889316558838
-        Y: 2.8479256629943848
-        Z: 0.006706926506012678
+        X: 1.2517812252044678
+        Y: 1.6986846923828125
+        Z: 0.005567579995840788
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -810,12 +828,12 @@ Visualization Manager:
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 996
+  Height: 842
   Hide Left Dock: false
   Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000156000002fcfc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000002fc000000c900fffffffb0000000a0049006d00610067006500000001b1000000aa0000001600fffffffb0000000a0049006d0061006700650000000211000000cd0000001600fffffffb0000000a0049006d00610067006500000002aa000000eb0000001600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003f8fc0200000002fb0000000a00560069006500770073000000003d000003f8000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000067400000088fc0100000003fc0000000000000674000003bc00fffffffa000000000200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000005c00fffffffb0000000800540069006d00650100000206000000870000003900fffffffc00000064000004f30000000000fffffffa000000000200000001fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000000000000000fb0000000800540069006d0065010000000000000450000000000000000000000518000002fc00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001a900000268fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000268000000c900fffffffb0000000a0049006d00610067006500000001b1000000aa0000001600fffffffb0000000a0049006d0061006700650000000211000000cd0000001600fffffffb0000000a0049006d00610067006500000002aa000000eb0000001600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003f8fc0200000002fb0000000a00560069006500770073000000003d000003f8000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000056a00000082fc0100000003fc000000000000056a000003bc00fffffffa000000000200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000005c00fffffffb0000000800540069006d00650100000206000000870000003900fffffffc00000064000004f30000000000fffffffa000000000200000001fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000000000000000fb0000000800540069006d00650100000000000004500000000000000000000003bb0000026800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -824,6 +842,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1652
-  X: 137
-  Y: 70
+  Width: 1386
+  X: 172
+  Y: 137

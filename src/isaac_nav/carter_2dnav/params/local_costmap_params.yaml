@@ -9,5 +9,5 @@ local_costmap:
   height: 7.0
   resolution: 0.1
   transform_tolerance: 1.25
-  inflation_radius: 0.32
+  inflation_radius: 0.35
 
