@@ -19,7 +19,7 @@ Panels:
         - /Path5
         - /Path6
       Splitter Ratio: 0.5
-    Tree Height: 555
+    Tree Height: 1036
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -68,83 +68,35 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        carter1/base_footprint:
+          Value: true
         carter1/base_link:
-          Value: true
-        carter1/carter_camera_stereo_left:
-          Value: true
-        carter1/carter_camera_stereo_right:
-          Value: true
-        carter1/carter_lidar:
-          Value: true
-        carter1/chassis_link:
-          Value: true
-        carter1/com_offset:
-          Value: true
-        carter1/imu:
-          Value: true
-        carter1/left_wheel_link:
           Value: true
         carter1/map:
           Value: true
         carter1/odom:
           Value: true
-        carter1/rear_pivot_link:
+        carter1/rplidar_link:
           Value: true
-        carter1/rear_wheel_link:
-          Value: true
-        carter1/right_wheel_link:
+        carter2/base_footprint:
           Value: true
         carter2/base_link:
-          Value: true
-        carter2/carter_camera_stereo_left:
-          Value: true
-        carter2/carter_camera_stereo_right:
-          Value: true
-        carter2/carter_lidar:
-          Value: true
-        carter2/chassis_link:
-          Value: true
-        carter2/com_offset:
-          Value: true
-        carter2/imu:
-          Value: true
-        carter2/left_wheel_link:
           Value: true
         carter2/map:
           Value: true
         carter2/odom:
           Value: true
-        carter2/rear_pivot_link:
+        carter2/rplidar_link:
           Value: true
-        carter2/rear_wheel_link:
-          Value: true
-        carter2/right_wheel_link:
+        carter3/base_footprint:
           Value: true
         carter3/base_link:
-          Value: true
-        carter3/carter_camera_stereo_left:
-          Value: true
-        carter3/carter_camera_stereo_right:
-          Value: true
-        carter3/carter_lidar:
-          Value: true
-        carter3/chassis_link:
-          Value: true
-        carter3/com_offset:
-          Value: true
-        carter3/imu:
-          Value: true
-        carter3/left_wheel_link:
           Value: true
         carter3/map:
           Value: true
         carter3/odom:
           Value: true
-        carter3/rear_pivot_link:
-          Value: true
-        carter3/rear_wheel_link:
-          Value: true
-        carter3/right_wheel_link:
+        carter3/rplidar_link:
           Value: true
         map:
           Value: true
@@ -162,67 +114,25 @@ Visualization Manager:
         map:
           carter1/map:
             carter1/odom:
+              carter1/base_footprint:
+                {}
               carter1/base_link:
-                carter1/chassis_link:
-                  carter1/carter_camera_stereo_left:
-                    {}
-                  carter1/carter_camera_stereo_right:
-                    {}
-                  carter1/carter_lidar:
-                    {}
-                  carter1/com_offset:
-                    {}
-                  carter1/imu:
-                    {}
-                  carter1/left_wheel_link:
-                    {}
-                  carter1/rear_pivot_link:
-                    carter1/rear_wheel_link:
-                      {}
-                  carter1/right_wheel_link:
-                    {}
+                carter1/rplidar_link:
+                  {}
           carter2/map:
             carter2/odom:
+              carter2/base_footprint:
+                {}
               carter2/base_link:
-                carter2/chassis_link:
-                  carter2/carter_camera_stereo_left:
-                    {}
-                  carter2/carter_camera_stereo_right:
-                    {}
-                  carter2/carter_lidar:
-                    {}
-                  carter2/com_offset:
-                    {}
-                  carter2/imu:
-                    {}
-                  carter2/left_wheel_link:
-                    {}
-                  carter2/rear_pivot_link:
-                    carter2/rear_wheel_link:
-                      {}
-                  carter2/right_wheel_link:
-                    {}
+                carter2/rplidar_link:
+                  {}
           carter3/map:
             carter3/odom:
+              carter3/base_footprint:
+                {}
               carter3/base_link:
-                carter3/chassis_link:
-                  carter3/carter_camera_stereo_left:
-                    {}
-                  carter3/carter_camera_stereo_right:
-                    {}
-                  carter3/carter_lidar:
-                    {}
-                  carter3/com_offset:
-                    {}
-                  carter3/imu:
-                    {}
-                  carter3/left_wheel_link:
-                    {}
-                  carter3/rear_pivot_link:
-                    carter3/rear_wheel_link:
-                      {}
-                  carter3/right_wheel_link:
-                    {}
+                carter3/rplidar_link:
+                  {}
           map_merge_frame:
             {}
           odom:
@@ -243,32 +153,32 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: costmap
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /carter1/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: costmap
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /carter2/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 0.800000011920929
       Class: rviz/Map
       Color Scheme: costmap
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /carter3/move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 1
       Axes Length: 1
       Axes Radius: 0.10000000149011612
@@ -437,155 +347,50 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        chassis_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        com_offset:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        imu:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_pivot_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: carter1
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        chassis_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        com_offset:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        imu:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_pivot_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: carter2
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        chassis_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        com_offset:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        imu:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_pivot_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rear_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: carter3
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Class: rviz/Image
       Enabled: false
@@ -686,7 +491,7 @@ Visualization Manager:
       Marker Topic: /carter1/explore/frontiers
       Name: MarkerArray
       Namespaces:
-        {}
+        frontiers: true
       Queue Size: 100
       Value: true
     - Alpha: 1
@@ -766,7 +571,7 @@ Visualization Manager:
       Marker Topic: /carter2/explore/frontiers
       Name: MarkerArray
       Namespaces:
-        {}
+        frontiers: true
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -774,7 +579,7 @@ Visualization Manager:
       Marker Topic: /carter3/explore/frontiers
       Name: MarkerArray
       Namespaces:
-        {}
+        frontiers: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -805,7 +610,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 130.58348083496094
+      Distance: 23.426511764526367
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -813,9 +618,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.2517812252044678
-        Y: 1.6986846923828125
-        Z: 0.005567579995840788
+        X: 8.538411140441895
+        Y: -3.4950106143951416
+        Z: 0.00040176205220632255
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -828,12 +633,12 @@ Visualization Manager:
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 842
+  Height: 1323
   Hide Left Dock: false
   Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001a900000268fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000268000000c900fffffffb0000000a0049006d00610067006500000001b1000000aa0000001600fffffffb0000000a0049006d0061006700650000000211000000cd0000001600fffffffb0000000a0049006d00610067006500000002aa000000eb0000001600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003f8fc0200000002fb0000000a00560069006500770073000000003d000003f8000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000056a00000082fc0100000003fc000000000000056a000003bc00fffffffa000000000200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000005c00fffffffb0000000800540069006d00650100000206000000870000003900fffffffc00000064000004f30000000000fffffffa000000000200000001fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000000000000000fb0000000800540069006d00650100000000000004500000000000000000000003bb0000026800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001a900000449fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000449000000c900fffffffb0000000a0049006d00610067006500000001b1000000aa0000001600fffffffb0000000a0049006d0061006700650000000211000000cd0000001600fffffffb0000000a0049006d00610067006500000002aa000000eb0000001600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003f8fc0200000002fb0000000a00560069006500770073000000003d000003f8000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000ab300000082fc0100000003fc0000000000000ab3000003bc00fffffffa000000000200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000005c00fffffffb0000000800540069006d00650100000206000000870000003900fffffffc00000064000004f30000000000fffffffa000000000200000001fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000000000000000fb0000000800540069006d00650100000000000004500000000000000000000009040000044900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -842,6 +647,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1386
-  X: 172
-  Y: 137
+  Width: 2739
+  X: 823
+  Y: 19

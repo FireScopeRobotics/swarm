@@ -34,7 +34,9 @@
     <remap from="/move_base/TrajectoryPlannerROS/global_plan"                      to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/global_plan" />
     <remap from="/move_base/TrajectoryPlannerROS/local_plan"                       to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/local_plan" />
     <remap from="/move_base/global_costmap/costmap"                                to="/$(arg robot_name)/move_base/global_costmap/costmap" />
+    <!-- <remap from="/move_base/global_costmap/costmap"                                to="/map_merge_topic" /> -->
     <remap from="/move_base/global_costmap/costmap_updates"                        to="/$(arg robot_name)/move_base/global_costmap/costmap_updates" />
+    <!-- <remap from="/move_base/global_costmap/costmap_updates"                        to="/map_updates" /> -->
     <remap from="/move_base/local_costmap/costmap"                                 to="/$(arg robot_name)/move_base/local_costmap/costmap" />
     <remap from="/move_base/local_costmap/costmap_updates"                         to="/$(arg robot_name)/move_base/local_costmap/costmap_updates" />
     <remap from="/move_base/local_costmap/footprint"                               to="/$(arg robot_name)/move_base/local_costmap/footprint" />

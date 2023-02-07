@@ -6,7 +6,8 @@
 <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping0" output="screen">
 <remap from="scan" to="/carter1/scan"/>
 <param name="sigma" value="0.05"/>
-<param name="delta" value="0.2"/>
+<param name="delta" value="0.05"/>
+<param name="maxRange" value="10"/>
 <param name="throttle_scans" value="50"/>
 <param name="base_frame" value="/carter1/base_link"/>
 <remap from="map" to="/carter1/map"/>
@@ -18,7 +19,8 @@
 <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping1" output="screen">
 <remap from="scan" to="/carter2/scan"/>
 <param name="sigma" value="0.05"/>
-<param name="delta" value="0.2"/>
+<param name="delta" value="0.05"/>
+<param name="maxRange" value="10"/>
 <param name="throttle_scans" value="50"/>
 <param name="base_frame" value="/carter2/base_link"/>
 <remap from="map" to="/carter2/map"/>
@@ -30,7 +32,8 @@
 <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping2" output="screen">
 <remap from="scan" to="/carter3/scan"/>
 <param name="sigma" value="0.05"/>
-<param name="delta" value="0.2"/>
+<param name="delta" value="0.05"/>
+<param name="maxRange" value="10"/>
 <param name="throttle_scans" value="50"/>
 <param name="base_frame" value="/carter3/base_link"/>
 <remap from="map" to="/carter3/map"/>
