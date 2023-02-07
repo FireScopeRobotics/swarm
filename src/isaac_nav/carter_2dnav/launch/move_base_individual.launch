@@ -21,9 +21,9 @@
     <param name="global_costmap/robot_base_frame"                                  value="$(arg base_frame_id)"/>
     <param name="local_costmap/global_frame"                                       value="$(arg odom_frame_id)"/>
     <param name="local_costmap/robot_base_frame"                                   value="$(arg base_frame_id)"/>
-    <param name="global_costmap/laser_scan_sensor/sensor_frame"                    value="$(arg robot_name)/carter_lidar" />
+    <param name="global_costmap/laser_scan_sensor/sensor_frame"                    value="$(arg robot_name)/rplidar_link" />
     <param name="global_costmap/laser_scan_sensor/topic"                           value="/$(arg robot_name)/scan" />
-    <param name="local_costmap/laser_scan_sensor/sensor_frame"                     value="$(arg robot_name)/carter_lidar" />
+    <param name="local_costmap/laser_scan_sensor/sensor_frame"                     value="$(arg robot_name)/rplidar_link" />
     <param name="local_costmap/laser_scan_sensor/topic"                            value="/$(arg robot_name)/scan" />
 
     <remap from="cmd_vel"                                                          to="/$(arg robot_name)/cmd_vel"/>
