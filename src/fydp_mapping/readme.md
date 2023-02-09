@@ -12,6 +12,7 @@
 5. Source workspace. Run `roslaunch fydp_mapping isaac_gmapping_test.launch`
 6. Source workspace. Run `roslaunch fydp_mapping isaac_merge_multiple_map_test.launch`
 7. Source workspace. Run `roslaunch explore_lite explore_costmap_multi_robot_test.launch`
+8. Source workspace. Run `roslaunch fydp_mapping tb_topic_inject.launch`
 
 ## How to run multi robot mapping demo (No Exploration):
 

@@ -4,10 +4,16 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from tf2_msgs.msg import TFMessage
 from geometry_msgs.msg import TransformStamped
+import tf
 
 import sys
 
 import numpy as np
+
+first = True
+qr = tf.transformations.quaternion_from_euler(0, 0, 0)
+first_translation = np.array([0.0, 0.0, 0.0])
+tf_found = False
 
 class TF_inject:
     def __init__(self, namespace):
@@ -28,11 +34,31 @@ class TF_inject:
         
         tf_val = TransformStamped()
 
-        for tf in msg_pub.transforms:
-            tf.header.frame_id = self.namespace + "/" + tf.header.frame_id
-            tf.child_frame_id = self.namespace + "/" + tf.child_frame_id
-            tf_val.header.seq = tf.header.seq
-            tf_val.header.stamp = tf.header.stamp
+        global qr, first_translation, tf_found
+
+        for tf_obj in msg_pub.transforms:
+            if tf_obj.header.frame_id == "odom" and (tf_obj.child_frame_id == "base_link" or tf_obj.child_frame_id == "base_footprint"):
+                q2 = tf.transformations.quaternion_from_euler(0, 0, 0)
+                q2[0] = tf_obj.transform.rotation.x
+                q2[1] = tf_obj.transform.rotation.y
+                q2[2] = tf_obj.transform.rotation.z
+                q2[3] = tf_obj.transform.rotation.w
+                
+                q_corrected = tf.transformations.quaternion_multiply(qr, q2)
+
+                tf_obj.transform.rotation.x = q_corrected[0]
+                tf_obj.transform.rotation.y = q_corrected[1]
+                tf_obj.transform.rotation.z = q_corrected[2]
+                tf_obj.transform.rotation.w = q_corrected[3] 
+                        
+                tf_obj.transform.translation.x -= first_translation[0]
+                tf_obj.transform.translation.y -= first_translation[1]
+                # tf_obj.transform.translation.z -= first_translation[2] 
+            
+            tf_obj.header.frame_id = self.namespace + "/" + tf_obj.header.frame_id
+            tf_obj.child_frame_id = self.namespace + "/" + tf_obj.child_frame_id
+            tf_val.header.seq = tf_obj.header.seq
+            tf_val.header.stamp = tf_obj.header.stamp
 
         # TF between base_link and rplidar_link
         #(x=-0.04, y=0.0, z=0.192915), rotation=geometry_msgs.msg.Quaternion(x=0.0, y=0.0, z=0.7071067811865475, w=0.7071067811865476)))
@@ -51,7 +77,8 @@ class TF_inject:
         
         msg_pub.transforms.append(tf_val)
         
-        self.pub_tf.publish(msg)
+
+        self.pub_tf.publish(msg_pub)
 
 
     def odom_callback(self, msg):
@@ -60,14 +87,49 @@ class TF_inject:
         msg_pub.header.frame_id = self.namespace + "/" + msg_pub.header.frame_id
         msg_pub.child_frame_id = self.namespace + "/" + msg_pub.child_frame_id
 
-        self.pub_odom.publish(msg)
+        global first, qr, first_translation, tf_found
+
+        if first:
+            # Going from q2 to q1 and finidng relative qr
+            q1 = tf.transformations.quaternion_from_euler(0, 0, 0)
+            q2_inv = tf.transformations.quaternion_from_euler(0, 0, 0)
+            q2_inv[0] = msg_pub.pose.pose.orientation.x
+            q2_inv[1] = msg_pub.pose.pose.orientation.y
+            q2_inv[2] = msg_pub.pose.pose.orientation.z
+            q2_inv[3] = -msg_pub.pose.pose.orientation.w # Negate for inverse
+
+            qr = tf.transformations.quaternion_multiply(q1, q2_inv)
+            
+            first_translation = [msg_pub.pose.pose.position.x, msg_pub.pose.pose.position.y, msg_pub.pose.pose.position.z]
+            
+            first = False
+            tf_found = True
+
+        q2 = tf.transformations.quaternion_from_euler(0, 0, 0)
+        q2[0] = msg_pub.pose.pose.orientation.x
+        q2[1] = msg_pub.pose.pose.orientation.y
+        q2[2] = msg_pub.pose.pose.orientation.z
+        q2[3] = msg_pub.pose.pose.orientation.w
+        
+        q_corrected = tf.transformations.quaternion_multiply(qr, q2)
+
+        msg_pub.pose.pose.orientation.x = q_corrected[0]
+        msg_pub.pose.pose.orientation.y = q_corrected[1]
+        msg_pub.pose.pose.orientation.z = q_corrected[2]
+        msg_pub.pose.pose.orientation.w = q_corrected[3] 
+                
+        msg_pub.pose.pose.position.x -= first_translation[0]
+        msg_pub.pose.pose.position.y -= first_translation[1]
+        # msg_pub.pose.pose.position.z -= first_translation[2] 
+
+        self.pub_odom.publish(msg_pub)
 
     def scan_callback(self, msg):
         msg_pub = msg
 
         msg_pub.header.frame_id = self.namespace + "/" + msg_pub.header.frame_id
 
-        self.pub_scan.publish(msg)
+        self.pub_scan.publish(msg_pub)
 
 def main(ns):
 
