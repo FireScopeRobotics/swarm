@@ -167,6 +167,7 @@ include_directories(
  catkin_install_python(PROGRAMS
   scripts/measure_map.py
   scripts/tb_topic_inject.py
+  scripts/tb_dock_commands.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
