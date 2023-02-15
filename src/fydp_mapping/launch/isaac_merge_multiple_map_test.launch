@@ -23,6 +23,9 @@
     <param name="init_pose_yaw" value="0"  />
   </group>
 
+  <!-- args="0 0 0 1.57 0 0  
+  args="1.34 0 0 1.57 0 0
+  args="5.54 0 0 1.57 0 0 -->
   <!-- <group ns="carter2/map_merge">
     <param name="init_pose_x"   value="-30.06"/>
     <param name="init_pose_y"   value="-8"/>
