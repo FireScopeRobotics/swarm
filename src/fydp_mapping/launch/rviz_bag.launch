@@ -1,0 +1,6 @@
+<launch>
+
+<!-- Launching Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/launch/carter_gmapping_exploration.rviz" />
+  
+</launch>
