@@ -168,6 +168,7 @@ include_directories(
   scripts/measure_map.py
   scripts/tb_topic_inject.py
   scripts/tb_dock_commands.py
+  scripts/merge_map.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

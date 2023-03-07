@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="fydp_mapping" type="merge_map.py" respawn="true" name="fydp_merge_map" output="screen">
+  </node>
+
+  <node pkg="tf" type="static_transform_publisher" name="world_to_carter1_tf_broadcaster"  args="0 0 0 0 0 0 /map /carter1/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_carter2_tf_broadcaster" args="0 0 0 0 0 0 /map /carter2/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_carter3_tf_broadcaster" args="0 0 0 0 0 0 /map /carter3/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="map_merge_tf_broadcaster" args="0 0 0 0 0 0 map map_merge_frame 100"/>
+</launch>
