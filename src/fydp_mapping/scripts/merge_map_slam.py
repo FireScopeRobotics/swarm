@@ -25,9 +25,9 @@ class Map:
 class Map_Merge:
     def __init__(self):
 
-        self.origin = [-30, -30]
-        self.width = int(60/0.05)
-        self.height = int(60/0.05)
+        self.origin = [-10, -10]
+        self.width = int(20/0.05)
+        self.height = int(20/0.05)
         self.data = -1 * np.ones((self.height, self.width), dtype=np.int8)
         self.map_res = 0.05
 
