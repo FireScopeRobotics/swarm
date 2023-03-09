@@ -44,7 +44,11 @@ roslaunch fydp_mapping lol_merge_multiple_map_test.launch
 roslaunch fydp_mapping tb_dock_commands.launch command:=u
 
 roslaunch fydp_mapping fydp_slam_toolbox_map.launch
+OR 
+python3 src/fydp_mapping/scripts/map_listener.py 
 
 roslaunch explore_lite explore_slam_costmap_multi_robot_test.launch
+OR
+python3 src/fydp_mapping/scripts/explore_listener.py 
 
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=carter1/cmd_vel
