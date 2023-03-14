@@ -78,28 +78,19 @@ class Robot_Handler:
 
         elif self.first_stage_passed:
 
-            # define a regular expression pattern to match the value of is_docked
-            pattern = r"is_docked=(\w+)"
+            is_docked_str = msg.data.split("=")[1].strip(")")
+            is_docked = True if is_docked_str == "True" else False
 
-            # use re.search() to find the first occurrence of the pattern in the string
-            match = re.search(pattern, msg.data)
-
-            # check if a match was found
-            if match:
-                # get the captured group from the match object and convert it to a boolean value
-                is_docked = bool(match.group(1))
-                if is_docked:
-                    rospy.loginfo(f"{self.namespace}: Robot is docked!")
-                else:
-                    rospy.loginfo(f"{self.namespace}: Robot is not docked!")
-                
+            if is_docked:
+                rospy.loginfo(f"{self.namespace}: Robot is docked!")
+            else:
+                rospy.loginfo(f"{self.namespace}: Robot is not docked!")
+            
+            if self.command_list[self.command_idx] == "u" and not is_docked:
                 self.run_final_manuever()
 
-                rospy.signal_shutdown("Dock maneuver complete")
+            rospy.signal_shutdown("Dock maneuver complete")
 
-            else:
-                rospy.loginfo(f"{self.namespace}: No match found")
-            
 
 def main(ns, command):
 
