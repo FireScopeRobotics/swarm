@@ -58,7 +58,13 @@
 
   <node pkg="fydp_mapping" type="clear_robot_pose_map.py" respawn="true" name="fydp_clear_robot_pose_map" output="screen">
   </node>
+  <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam_inflated" output="screen">
+    <param name="map_merge_topic" value="/map_merge_topic"/>
+    <param name="costmap_sub_topic" value="move_base/global_costmap/costmap"/>
+  </node>
   <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam" output="screen">
+    <param name="map_merge_topic" value="/map_merge_topic_thin"/>
+    <param name="costmap_sub_topic" value="map"/>
   </node>
 
   <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg first_tb3)_tf_broadcaster"  args="1.36 -7.8 0 -1.57 0 0 /map /carter1/map 100"/>

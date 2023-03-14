@@ -28,7 +28,7 @@ class Map_Merge:
         self.origin = [-10, -10]
         self.width = int(20/0.05)
         self.height = int(20/0.05)
-        self.data = -1 * np.ones((self.height, self.width), dtype=np.int8)
+        self.data = 0 * np.ones((self.height, self.width), dtype=np.int8)
         self.map_res = 0.05
 
 map_merge = Map_Merge()
@@ -71,11 +71,10 @@ def map3_callback(msg):
 def post_map_callback(event):
     global map_merge, map1, map2, map3, pub
 
+    
     if (map1.width is None) or (map2.width is None) or (map3.width is None):
         return
 
-    
-    from scipy.ndimage import shift
 
     # def rotate_image(map, angle):
 
@@ -138,8 +137,12 @@ def post_map_callback(event):
     map3_slice = map_merge.data[map3_y: map3_y + map3.height, map3_x: map3_x + map3.width]
     
     def update_map(map_slice, map):
-        
-        mask = (map != -1)
+        map_merge_topic = rospy.get_param('~map_merge_topic')
+        if map_merge_topic == "/map_merge_topic_thin":
+            mask = (map != -1)
+            print(-1)
+        else:    
+            mask = (map != 0)
         map_slice[mask] = map[mask]
         return map_slice
 
@@ -185,25 +188,34 @@ def post_map_callback(event):
 
     map_msg.data = map_merge.data.flatten()
     pub.publish(map_msg)
+    
+    print("Published map")
 
     # map_msg.data = np.maximum(map1, np.maximum(map2, map3))
-    pub.publish(map_msg)
+    #pub.publish(map_msg)
 
 
 def listener():
 
-    global pub
+    global pub, map_merge
     rospy.init_node('merge_map', anonymous=True)
+    map_merge_topic = rospy.get_param('~map_merge_topic')
+    costmap_sub_topic = rospy.get_param('~costmap_sub_topic')
+    
 
-    pub = rospy.Publisher('/map_merge_topic', OccupancyGrid, queue_size=10)
+    pub = rospy.Publisher(map_merge_topic, OccupancyGrid, queue_size=10)
 
-    # rospy.Subscriber("/carter1/move_base/global_costmap/costmap", OccupancyGrid, map1_callback)
-    # rospy.Subscriber("/carter2/move_base/global_costmap/costmap", OccupancyGrid, map2_callback)
-    # rospy.Subscriber("/carter3/move_base/global_costmap/costmap", OccupancyGrid, map3_callback)
+    rospy.Subscriber("/carter1/"+ costmap_sub_topic, OccupancyGrid, map1_callback)
+    rospy.Subscriber("/carter2/"+ costmap_sub_topic, OccupancyGrid, map2_callback)
+    rospy.Subscriber("/carter3/"+ costmap_sub_topic, OccupancyGrid, map3_callback)
 
-    rospy.Subscriber("/carter1/map", OccupancyGrid, map1_callback)
-    rospy.Subscriber("/carter2/map", OccupancyGrid, map2_callback)
-    rospy.Subscriber("/carter3/map", OccupancyGrid, map3_callback)
+    map_merge_topic = rospy.get_param('~map_merge_topic')
+    if map_merge_topic == "/map_merge_topic_thin":
+        map_merge.data -= 1
+        
+    # rospy.Subscriber("/carter1/map", OccupancyGrid, map1_callback)
+    # rospy.Subscriber("/carter2/map", OccupancyGrid, map2_callback)
+    # rospy.Subscriber("/carter3/map", OccupancyGrid, map3_callback)
 
     rospy.Timer(rospy.Duration(0.5), post_map_callback)
 

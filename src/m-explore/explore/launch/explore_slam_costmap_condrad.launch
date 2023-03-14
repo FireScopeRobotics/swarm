@@ -5,7 +5,7 @@
   <!-- <param name="costmap_topic" value="/carter1/map"/>
   <param name="costmap_updates_topic" value="/carter1/map_updates"/> -->
 
-  <param name="costmap_topic" value="/map_merge_topic_thin"/>
+  <param name="costmap_topic" value="/carter1/map"/>
   <param name="costmap_updates_topic" value="/map_updates"/>
   <param name="visualize" value="true"/>
   <param name="planner_frequency" value="0.33"/>
@@ -41,7 +41,7 @@
   <!-- <param name="costmap_topic" value="/carter3/map"/>
   <param name="costmap_updates_topic" value="/carter3/map_updates"/> -->
   
-  <param name="costmap_topic" value="/map_merge_topic_thin"/>
+  <param name="costmap_topic" value="/carter3/map"/>
   <param name="costmap_updates_topic" value="/map_updates"/>
   
   <param name="visualize" value="true"/>
