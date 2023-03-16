@@ -174,6 +174,7 @@ target_link_libraries(map_expansion ${catkin_LIBRARIES})
   scripts/merge_map.py
   scripts/clear_robot_pose_map.py
   scripts/merge_map_slam.py
+  scripts/turtlebot4_joystick.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
