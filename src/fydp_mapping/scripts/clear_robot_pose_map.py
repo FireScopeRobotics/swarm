@@ -55,15 +55,15 @@ def callback(msg):
 
     x = int((robot1_x - origin[0])/map_res)
     y = int((robot1_y - origin[1])/map_res)
-    occupany_map[y - 5: y + 5, x - 5 : x + 5] = np.zeros((10, 10), dtype=np.int8)
+    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
 
     x = int((robot2_x - origin[0])/map_res)
     y = int((robot2_y - origin[1])/map_res)
-    occupany_map[y - 5: y + 5, x - 5 : x + 5] = np.zeros((10, 10), dtype=np.int8)
+    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
 
     x = int((robot3_x - origin[0])/map_res)
     y = int((robot3_y - origin[1])/map_res)
-    occupany_map[y - 5: y + 5, x - 5 : x + 5] = np.zeros((10, 10), dtype=np.int8)
+    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
     # update_msg.width = 6
     # update_msg.height = 6
     # update_msg.data = 100* np.ones(25, dtype=np.int8)

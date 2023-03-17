@@ -9,7 +9,7 @@ ack_count = 0
 
 def run_process ():
     print ("start")
-    subprocess.call("/home/ayushg/swarm/src/fydp_mapping/scripts/run_explore.sh")
+    subprocess.call("/home/nick/swarm/src/fydp_mapping/scripts/run_explore.sh")
     print ("end")
 
 def callback(msg):
