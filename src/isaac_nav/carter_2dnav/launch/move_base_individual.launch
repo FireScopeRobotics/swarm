@@ -29,7 +29,7 @@
     <remap from="cmd_vel"                                                          to="/$(arg robot_name)/cmd_vel"/>
     <remap from="odom"                                                             to="$(arg odom_topic)"/>
     <remap from="scan"                                                             to="$(arg laser_topic)"/>
-    <remap from="map"                                                              to="/$(arg robot_name)/map" />
+    <remap from="map"                                                              to="/map_merge_topic_thin" />
     <remap from="/move_base_simple/goal"                                           to="/$(arg robot_name)/move_base_simple/goal" />
     <remap from="/move_base/TrajectoryPlannerROS/global_plan"                      to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/global_plan" />
     <remap from="/move_base/TrajectoryPlannerROS/local_plan"                       to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/local_plan" />
