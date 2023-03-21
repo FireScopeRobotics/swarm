@@ -1,0 +1,18 @@
+<launch>
+
+  <node pkg="fydp_mapping" type="clear_robot_pose_map.py" respawn="true" name="fydp_clear_robot_pose_map" output="screen">
+  </node>
+  <!-- <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam_inflated" output="screen">
+    <param name="map_merge_topic" value="/map_merge_topic"/>
+    <param name="costmap_sub_topic" value="move_base/global_costmap/costmap"/>
+  </node> -->
+  <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam" output="screen">
+    <param name="map_merge_topic" value="/map_merge_topic_thin"/>
+    <param name="costmap_sub_topic" value="map"/>
+  </node>
+
+  
+  <!-- Launching Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/launch/carter_gmapping_exploration.rviz" />
+
+</launch>

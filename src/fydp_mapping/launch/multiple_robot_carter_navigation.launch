@@ -1,6 +1,6 @@
 <launch>
 
-  <param name="/use_sim_time" value="false"/>
+  <param name="/use_sim_time" value="true"/>
 
   <arg name="robot1" value="carter1" />
   <arg name="robot2" value="carter2" />
