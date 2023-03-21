@@ -7,9 +7,12 @@ import tf2_ros
 
 import numpy as np
 
+global_robot_x_list = []
+global_robot_y_list = []
+
 def callback(msg):
     
-    global pub, tfBuffer, listener
+    global pub, tfBuffer, listener, global_robot_x_list, global_robot_y_list
 
     origin = [msg.info.origin.position.x, msg.info.origin.position.y]
     
@@ -52,18 +55,19 @@ def callback(msg):
 
     # update_msg.x = int((robot_x - 0.15 - origin[0])/map_res)
     # update_msg.y = int((robot_y + 0 - origin[1])/map_res)
+    for robot_x, robot_y in zip(global_robot_x_list, global_robot_y_list):
 
-    x = int((robot1_x - origin[0])/map_res)
-    y = int((robot1_y - origin[1])/map_res)
-    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
+        x = int((robot_x - origin[0])/map_res)
+        y = int((robot_y - origin[1])/map_res)
+        occupany_map[y - 5: y + 5, x - 5 : x + 5] = np.zeros((10, 10), dtype=np.int8)
 
-    x = int((robot2_x - origin[0])/map_res)
-    y = int((robot2_y - origin[1])/map_res)
-    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
+    # x = int((robot2_x - origin[0])/map_res)
+    # y = int((robot2_y - origin[1])/map_res)
+    # occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
 
-    x = int((robot3_x - origin[0])/map_res)
-    y = int((robot3_y - origin[1])/map_res)
-    occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
+    # x = int((robot3_x - origin[0])/map_res)
+    # y = int((robot3_y - origin[1])/map_res)
+    # occupany_map[y - 7: y + 7, x - 7 : x + 7] = np.zeros((14, 14), dtype=np.int8)
     # update_msg.width = 6
     # update_msg.height = 6
     # update_msg.data = 100* np.ones(25, dtype=np.int8)
@@ -94,7 +98,7 @@ def listener():
     
     pub = rospy.Publisher('/map', OccupancyGrid, queue_size=10)
 
-    rospy.Subscriber("/map_merge_topic", OccupancyGrid, callback)
+    rospy.Subscriber("/map_merge_topic_thin", OccupancyGrid, callback)
 
     rospy.spin()
 
