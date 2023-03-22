@@ -68,11 +68,22 @@ Explore::Explore()
   private_nh_.param("orientation_scale", orientation_scale_, 0.0);
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
+  private_nh_.param("robot_num", robot_num_, 1);
+  private_nh_.param("total_num_robots", total_robots_, 3);
+  global_robot_frontiers_.resize(3);
+
+  // goal_subscriber_ = this->create_subscription<std_msgs::msg::String>(
+  //     "addison", 10, std::bind(&MinimalSubscriber::topic_callback, this, _1));
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,
                                                  min_frontier_size);
 
+  goals_subscriber_ = private_nh_.subscribe<move_base_msgs::MoveBaseActionGoal>(
+      "/carter1/move_base/goal", 10,
+      [this](const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg) {
+        subscriberCallback(msg);
+      });
   if (visualize_) {
     marker_array_publisher_ =
         private_nh_.advertise<visualization_msgs::MarkerArray>("frontiers", 10);
@@ -90,6 +101,15 @@ Explore::Explore()
 Explore::~Explore()
 {
   stop();
+}
+
+void Explore::subscriberCallback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg)
+{
+  printf("-----------------------------------------------Test3\n");
+  printf("Received message: %f", msg->goal.target_pose.pose.position.x);
+  Goal point = {msg->goal.target_pose.pose.position.x, msg->goal.target_pose.pose.position.y};
+  global_robot_frontiers_[0] =  point;
+
 }
 
 void Explore::visualizeFrontiers(
@@ -178,6 +198,7 @@ void Explore::visualizeFrontiers(
 
 void Explore::makePlan()
 {
+  ros::spinOnce();
   // find frontiers
   auto pose = costmap_client_.getRobotPose();
   // get frontiers sorted according to cost
@@ -198,8 +219,16 @@ void Explore::makePlan()
   }
 
   // find non blacklisted frontier
+  
+  
+  int frontier_offset = robot_num_;
+  
+  if (frontiers.size() <= robot_num_+ 30){
+    frontier_offset = 1;
+  }
+
   auto frontier =
-      std::find_if_not(frontiers.begin(), frontiers.end(),
+      std::find_if_not(frontiers.begin()-1+frontier_offset, frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
                          return goalOnBlacklist(f.centroid);
                        });
@@ -207,6 +236,9 @@ void Explore::makePlan()
     stop();
     return;
   }
+  printf("----------------------------------------- SKIPPING %d", (-1+robot_num_));
+  printf("----------------------------------------- Goals %f,  %f", global_robot_frontiers_[0].x, global_robot_frontiers_[0].y);
+
   geometry_msgs::Point target_position = frontier->centroid;
 
   // time out if we are not making any progress

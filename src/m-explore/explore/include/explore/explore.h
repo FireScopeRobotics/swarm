@@ -88,6 +88,8 @@ private:
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;
   ros::Publisher marker_array_publisher_;
+  ros::Subscriber goals_subscriber_;
+
   tf::TransformListener tf_listener_;
 
   Costmap2DClient costmap_client_;
@@ -108,6 +110,15 @@ private:
   double potential_scale_, orientation_scale_, gain_scale_;
   ros::Duration progress_timeout_;
   bool visualize_;
+  int robot_num_;
+  int total_robots_;
+
+  struct Goal { double x; double y;};
+  std::vector<Goal> global_robot_frontiers_;
+
+  ros::Subscriber sub;
+  void subscriberCallback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg);
+
 };
 }
 
