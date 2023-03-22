@@ -68,6 +68,7 @@ Explore::Explore()
   private_nh_.param("orientation_scale", orientation_scale_, 0.0);
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
+  private_nh_.param("robot_num", robot_num_, 1);
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,
@@ -198,8 +199,16 @@ void Explore::makePlan()
   }
 
   // find non blacklisted frontier
+  
+  
+  int frontier_offset = robot_num_;
+  
+  if (frontiers.size() <= robot_num_+ 30){
+    frontier_offset = 1;
+  }
+
   auto frontier =
-      std::find_if_not(frontiers.begin(), frontiers.end(),
+      std::find_if_not(frontiers.begin()-1+frontier_offset, frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
                          return goalOnBlacklist(f.centroid);
                        });
@@ -207,6 +216,7 @@ void Explore::makePlan()
     stop();
     return;
   }
+  printf("----------------------------------------- SKIPPING %d", (-1+robot_num_));
   geometry_msgs::Point target_position = frontier->centroid;
 
   // time out if we are not making any progress

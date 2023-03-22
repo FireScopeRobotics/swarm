@@ -67,7 +67,7 @@ def callback(msg):
 
         x = int((robot_x - origin[0])/map_res)
         y = int((robot_y - origin[1])/map_res)
-        occupany_map[y - 3: y + 3, x - 3 : x + 3] = np.zeros((6, 6), dtype=np.int8)
+        occupany_map[y - 5: y + 5, x - 5 : x + 5] = np.zeros((10, 10), dtype=np.int8)
 
     # x = int((robot2_x - origin[0])/map_res)
     # y = int((robot2_y - origin[1])/map_res)
