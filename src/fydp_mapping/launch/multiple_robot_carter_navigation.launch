@@ -61,7 +61,7 @@
     <arg name="robot_name" value="$(arg robot2)" />
   </include>
   
-  <include file="$(find carter_2dnav)/launch/move_base_individual.launch" >
+  <include file="$(find carter_2dnav)/launch/move_base_odyn_individual.launch" >
     <arg name="robot_name" value="$(arg robot3)" />
   </include>
 

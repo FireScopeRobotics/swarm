@@ -69,10 +69,34 @@ Explore::Explore()
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
   private_nh_.param("robot_num", robot_num_, 1);
+  private_nh_.param("total_num_robots", total_robots_, 3);
+  private_nh_.param("frontier_goal_tolerance", frontier_goal_tol_, 1.0);
+  global_robot_frontiers_.resize(total_robots_);
+
+  // goal_subscriber_ = this->create_subscription<std_msgs::msg::String>(
+  //     "addison", 10, std::bind(&MinimalSubscriber::topic_callback, this, _1));
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,
                                                  min_frontier_size);
+
+  goals_subscriber1_ = private_nh_.subscribe<move_base_msgs::MoveBaseActionGoal>(
+      "/carter1/move_base/goal", 10,
+      [this](const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg) {
+        subscriber1Callback(msg);
+      });
+  
+  goals_subscriber2_ = private_nh_.subscribe<move_base_msgs::MoveBaseActionGoal>(
+      "/carter2/move_base/goal", 10,
+      [this](const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg) {
+        subscriber2Callback(msg);
+      });
+  
+  goals_subscriber3_ = private_nh_.subscribe<move_base_msgs::MoveBaseActionGoal>(
+      "/carter3/move_base/goal", 10,
+      [this](const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg) {
+        subscriber3Callback(msg);
+      });
 
   if (visualize_) {
     marker_array_publisher_ =
@@ -91,6 +115,31 @@ Explore::Explore()
 Explore::~Explore()
 {
   stop();
+}
+
+void Explore::subscriber1Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg)
+{
+  // printf("-----------------------------------------------Sub1Test3\n");
+  // printf("Received message: %f", msg->goal.target_pose.pose.position.x);
+  Goal point = {msg->goal.target_pose.pose.position.x, msg->goal.target_pose.pose.position.y};
+  global_robot_frontiers_[0] =  point;
+
+}
+void Explore::subscriber2Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg)
+{
+  // printf("-----------------------------------------------Sub2Test3\n");
+  // printf("Received message: %f", msg->goal.target_pose.pose.position.x);
+  Goal point = {msg->goal.target_pose.pose.position.x, msg->goal.target_pose.pose.position.y};
+  global_robot_frontiers_[1] =  point;
+
+}
+void Explore::subscriber3Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg)
+{
+  // printf("-----------------------------------------------Sub3Test3\n");
+  // printf("Received message: %f", msg->goal.target_pose.pose.position.x);
+  Goal point = {msg->goal.target_pose.pose.position.x, msg->goal.target_pose.pose.position.y};
+  global_robot_frontiers_[2] =  point;
+
 }
 
 void Explore::visualizeFrontiers(
@@ -179,6 +228,7 @@ void Explore::visualizeFrontiers(
 
 void Explore::makePlan()
 {
+  ros::spinOnce();
   // find frontiers
   auto pose = costmap_client_.getRobotPose();
   // get frontiers sorted according to cost
@@ -201,23 +251,24 @@ void Explore::makePlan()
   // find non blacklisted frontier
   
   
-  int frontier_offset = robot_num_;
+  // int frontier_offset = robot_num_;
   
-  if (frontiers.size() <= robot_num_+ 30){
-    frontier_offset = 1;
-  }
+  // if (frontiers.size() <= robot_num_+ 30){
+  //   frontier_offset = 1;
+  // }
 
   auto frontier =
-      std::find_if_not(frontiers.begin()-1+frontier_offset, frontiers.end(),
+      std::find_if_not(frontiers.begin(), frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
-                         return goalOnBlacklist(f.centroid);
+                         return goalOnBlacklist(f.centroid) || checkFrontiers(f.centroid);
                        });
+  
   if (frontier == frontiers.end()) {
     stop();
     return;
   }
-  printf("----------------------------------------- SKIPPING %d", (-1+robot_num_));
-  geometry_msgs::Point target_position = frontier->centroid;
+
+    geometry_msgs::Point target_position = frontier->centroid;
 
   // time out if we are not making any progress
   bool same_goal = prev_goal_ == target_position;
@@ -227,6 +278,11 @@ void Explore::makePlan()
     last_progress_ = ros::Time::now();
     prev_distance_ = frontier->min_distance;
   }
+  printf("----------------------------------------- SKIPPING %d", (-1+robot_num_));
+  printf("----------------------------------------- Goals1 %f,  %f", global_robot_frontiers_[0].x, global_robot_frontiers_[0].y);
+  printf("----------------------------------------- Goals2 %f,  %f", global_robot_frontiers_[1].x, global_robot_frontiers_[1].y);
+  printf("----------------------------------------- Goals3 %f,  %f", global_robot_frontiers_[2].x, global_robot_frontiers_[2].y);
+
   // black list if we've made no progress for a long time
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
@@ -258,7 +314,7 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
 {
   constexpr static size_t tolerace = 5;
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
-
+  // printf("YOOOOOOOOOOOHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
   // check if a goal is on the blacklist for goals that we're pursuing
   for (auto& frontier_goal : frontier_blacklist_) {
     double x_diff = fabs(goal.x - frontier_goal.x);
@@ -271,6 +327,27 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
   return false;
 }
 
+bool Explore::checkFrontiers(const geometry_msgs::Point& goal)
+{
+  // printf("HEEEEEEEEEEEEHAAAAAAAAAAAAAAAAAA\n");
+  bool status = false;
+  if (robot_num_  -1 == 0){
+    return false;
+  }
+
+  for (int i = 0; i < robot_num_; i++){
+    if (i != robot_num_-1){
+      double x_diff = fabs(goal.x - global_robot_frontiers_[i].x);
+      double y_diff = fabs(goal.y - global_robot_frontiers_[i].y);
+      if (sqrt(pow(x_diff, 2) + pow(y_diff, 2)) < frontier_goal_tol_)
+        status = true;
+  
+      // status = (global_robot_frontiers_[i].x == goal.x && global_robot_frontiers_[i].y == goal.y);
+      // printf("--------------LOL --------%d, %d\n", total_robots_, status);
+    }
+  }
+  return status;
+}
 void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
                           const move_base_msgs::MoveBaseResultConstPtr&,
                           const geometry_msgs::Point& frontier_goal)

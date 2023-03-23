@@ -84,10 +84,15 @@ private:
                    const geometry_msgs::Point& frontier_goal);
 
   bool goalOnBlacklist(const geometry_msgs::Point& goal);
+  bool checkFrontiers(const geometry_msgs::Point& goal);
 
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;
   ros::Publisher marker_array_publisher_;
+  ros::Subscriber goals_subscriber1_;
+  ros::Subscriber goals_subscriber2_;
+  ros::Subscriber goals_subscriber3_;
+
   tf::TransformListener tf_listener_;
 
   Costmap2DClient costmap_client_;
@@ -109,6 +114,17 @@ private:
   ros::Duration progress_timeout_;
   bool visualize_;
   int robot_num_;
+  int total_robots_;
+  double frontier_goal_tol_;
+
+  struct Goal { double x; double y;};
+  std::vector<Goal> global_robot_frontiers_;
+
+  ros::Subscriber sub;
+  void subscriber1Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg);
+  void subscriber2Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg);
+  void subscriber3Callback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& msg);
+
 };
 }
 
