@@ -29,9 +29,9 @@ def callback(msg):
 
     while not_found: 
         try:
-            trans1 = tfBuffer.lookup_transform('carter1/map', 'carter1/base_link',  rospy.Time())
-            trans2 = tfBuffer.lookup_transform('carter2/map', 'carter2/base_link',  rospy.Time())
-            trans3 = tfBuffer.lookup_transform('carter3/map', 'carter3/base_link',  rospy.Time())
+            trans1 = tfBuffer.lookup_transform('map', 'carter1/base_link',  rospy.Time())
+            trans2 = tfBuffer.lookup_transform('map', 'carter2/base_link',  rospy.Time())
+            trans3 = tfBuffer.lookup_transform('map', 'carter3/base_link',  rospy.Time())
             not_found = False
             
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
@@ -39,7 +39,7 @@ def callback(msg):
             continue
 
 
-
+    
     robot1_x = trans1.transform.translation.x
     robot1_y = trans1.transform.translation.y
 
@@ -48,6 +48,14 @@ def callback(msg):
 
     robot3_x = trans3.transform.translation.x
     robot3_y = trans3.transform.translation.y
+
+    global_robot_x_list.append(robot1_x)
+    global_robot_x_list.append(robot2_x)
+    global_robot_x_list.append(robot3_x)
+
+    global_robot_y_list.append(robot1_y)
+    global_robot_y_list.append(robot2_y)
+    global_robot_y_list.append(robot3_y)
 
     # round((robot_x - origin[0])/map_res)
 
