@@ -2,7 +2,7 @@
 
 # Launch the robot
 source /opt/ros/noetic/setup.bash 
-source /home/ayushg/swarm/devel/setup.bash
+source /home/nick/swarm/devel/setup.bash
 
 echo "Launching application, please wait!"
 roslaunch fydp_mapping fydp_slam_toolbox_map.launch

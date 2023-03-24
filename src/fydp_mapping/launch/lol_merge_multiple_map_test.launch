@@ -84,9 +84,9 @@
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="0 0 0 1.57 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="3.52 0.1 0 1.57 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/> -->
  
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="-1.65 -7.37 0 1.57 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="-1.46 -7.47 0 1.57 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="0 0 0 1.57 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="3.61 0.0 0 1.57 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="3.723 0 0 1.57 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>
   
   <!-- Launching Rviz -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/launch/carter_gmapping_exploration.rviz" />
