@@ -8,7 +8,7 @@
   <arg name="odom_topic" default="/$(arg robot_name)/odom" />
   <arg name="laser_topic" default="/$(arg robot_name)/scan" />
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base_$(arg robot_name)" output="screen">
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" ns="$(arg robot_name)" output="screen">
   
     <rosparam file="$(find carter_2dnav)/params/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
     <rosparam file="$(find carter_2dnav)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -21,9 +21,9 @@
     <param name="global_costmap/robot_base_frame"                                  value="$(arg base_frame_id)"/>
     <param name="local_costmap/global_frame"                                       value="$(arg odom_frame_id)"/>
     <param name="local_costmap/robot_base_frame"                                   value="$(arg base_frame_id)"/>
-    <param name="global_costmap/laser_scan_sensor/sensor_frame"                    value="$(arg robot_name)/carter_lidar" />
+    <param name="global_costmap/laser_scan_sensor/sensor_frame"                    value="$(arg robot_name)/rplidar_link" />
     <param name="global_costmap/laser_scan_sensor/topic"                           value="/$(arg robot_name)/scan" />
-    <param name="local_costmap/laser_scan_sensor/sensor_frame"                     value="$(arg robot_name)/carter_lidar" />
+    <param name="local_costmap/laser_scan_sensor/sensor_frame"                     value="$(arg robot_name)/rplidar_link" />
     <param name="local_costmap/laser_scan_sensor/topic"                            value="/$(arg robot_name)/scan" />
 
     <remap from="cmd_vel"                                                          to="/$(arg robot_name)/cmd_vel"/>
@@ -33,8 +33,10 @@
     <remap from="/move_base_simple/goal"                                           to="/$(arg robot_name)/move_base_simple/goal" />
     <remap from="/move_base/TrajectoryPlannerROS/global_plan"                      to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/global_plan" />
     <remap from="/move_base/TrajectoryPlannerROS/local_plan"                       to="/$(arg robot_name)/move_base/TrajectoryPlannerROS/local_plan" />
-    <remap from="/move_base/global_costmap/costmap"                                to="/$(arg robot_name)/move_base/global_costmap/costmap" />
-    <remap from="/move_base/global_costmap/costmap_updates"                        to="/$(arg robot_name)/move_base/global_costmap/costmap_updates" />
+    <!-- <remap from="/move_base/global_costmap/costmap"                                to="/$(arg robot_name)/move_base/global_costmap/costmap" /> -->
+    <remap from="/move_base/global_costmap/costmap"                                to="/map" />
+    <!-- <remap from="/move_base/global_costmap/costmap_updates"                        to="/$(arg robot_name)/move_base/global_costmap/costmap_updates" /> -->
+    <remap from="/move_base/global_costmap/costmap_updates"                        to="/map_updates" />
     <remap from="/move_base/local_costmap/costmap"                                 to="/$(arg robot_name)/move_base/local_costmap/costmap" />
     <remap from="/move_base/local_costmap/costmap_updates"                         to="/$(arg robot_name)/move_base/local_costmap/costmap_updates" />
     <remap from="/move_base/local_costmap/footprint"                               to="/$(arg robot_name)/move_base/local_costmap/footprint" />

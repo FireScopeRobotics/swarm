@@ -1,9 +1,9 @@
 <launch>
-    <param name="use_sim_time" value="true" />
+    <!-- <param name="use_sim_time" value="true" /> -->
 
     <!-- Load Robot Description -->
-    <arg name="model" default="$(find carter_description)/urdf/carter.urdf"/>
-    <param name="robot_description" textfile="$(arg model)" />
+    <!-- <arg name="model" default="$(find carter_description)/urdf/carter.urdf"/> -->
+    <!-- <param name="robot_description" textfile="$(arg model)" /> -->
 
     <!-- Run the map server --> 
     <node name="map_server" pkg="map_server" type="map_server" args="$(find carter_2dnav)/map/carter_warehouse_navigation.yaml" />

@@ -1,0 +1,6 @@
+obstacle_range: 25
+raytrace_range: 3
+footprint: [[-1, -0.5], [1.0, -0.5], [1.0, 0.5], [-1.0, 0.5]]
+cost_scaling_factor: 3.0
+observation_sources: laser_scan_sensor
+laser_scan_sensor: {sensor_frame: carter_lidar, data_type: LaserScan, topic: scan, marking: true, clearing: true}

@@ -1,0 +1,32 @@
+<launch>
+
+  <node pkg="slam_toolbox" type="sync_slam_toolbox_node" name="slam_toolbox1" output="screen">
+    <rosparam command="load" file="$(find fydp_mapping)/configuration_files/slam_config1.yaml" />
+    <remap from="map" to="/carter1/map"/>
+    <remap from="/initialpose" to = "/carter1/initialpose"/>
+  </node>
+
+  <node pkg="slam_toolbox" type="sync_slam_toolbox_node" name="slam_toolbox2" output="screen">
+    <rosparam command="load" file="$(find fydp_mapping)/configuration_files/slam_config2.yaml" />
+    <remap from="map" to="/carter2/map"/>
+    <remap from="/initialpose" to = "/carter2/initialpose"/>
+  </node>
+
+  <node pkg="slam_toolbox" type="sync_slam_toolbox_node" name="slam_toolbox3" output="screen">
+    <rosparam command="load" file="$(find fydp_mapping)/configuration_files/slam_config3.yaml" />
+    <remap from="map" to="/carter3/map"/>
+    <remap from="/initialpose" to = "/carter3/initialpose"/>
+  </node>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_carter1_tf_broadcaster"  args="1.36 -7.8 0 -1.57 0 0 /map /carter1/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_carter2_tf_broadcaster" args="0 0 0 1.57 0 0 /map /carter2/map 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_carter3_tf_broadcaster" args="4 0 0 1.57 0 0 /map /carter3/map 100"/> -->
+
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="map_merge_tf_broadcaster" args="0 0 0 0 0 0 map map_merge_frame 100"/> -->
+
+  <!-- 1.36 -7.8 0 -1.57 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="0 0 0 1.57 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="4 0 0 1.57 0 0 /$(a -->
+
+</launch>

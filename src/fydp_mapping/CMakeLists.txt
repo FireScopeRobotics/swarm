@@ -138,7 +138,9 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/beginner_tutorials_node.cpp)
-
+add_executable(map_expansion scripts/map_expansion.cpp)
+target_link_libraries(map_expansion ${catkin_LIBRARIES})
+# add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -166,6 +168,13 @@ include_directories(
 
  catkin_install_python(PROGRAMS
   scripts/measure_map.py
+  scripts/tb_topic_inject.py
+  scripts/tb_topic_inject_slam.py
+  scripts/tb_dock_commands.py
+  scripts/merge_map.py
+  scripts/clear_robot_pose_map.py
+  scripts/merge_map_slam.py
+  scripts/turtlebot4_joystick.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
