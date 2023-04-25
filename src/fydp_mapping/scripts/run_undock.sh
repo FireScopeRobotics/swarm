@@ -5,4 +5,4 @@ source /opt/ros/noetic/setup.bash
 source /home/nick/swarm/devel/setup.bash
 
 echo "Launching application, please wait!"
-roslaunch fydp_mapping tb_dock_commands.launch command:=u
+roslaunch fydp_mapping dock_commands.launch command:=u
