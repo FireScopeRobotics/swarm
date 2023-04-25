@@ -3,14 +3,14 @@ import rospy
 from std_msgs.msg import Empty
 import numpy as np
 import time
-import subprocess
+import subprocess, pathlib
 
 ack_count = 0
 
 def run_process ():
     time.sleep(2)
     print ("start")
-    subprocess.call("/home/nick/swarm/src/fydp_mapping/scripts/run_explore.sh")
+    subprocess.call("swarm/src/fydp_mapping/scripts/run_explore.sh", cwd=pathlib.Path.home())
     print ("end")
 
 def callback(msg):

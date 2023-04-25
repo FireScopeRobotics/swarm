@@ -1,0 +1,9 @@
+
+<launch>
+  <arg name="command" />
+
+  <node name="dock_commands_carter1" pkg="fydp_mapping" type="dock_commands.py" respawn="false" args="carter1 $(arg command)" output='screen'/>
+  <node name="dock_commands_carter2" pkg="fydp_mapping" type="dock_commands.py" respawn="false" args="carter2 $(arg command)" output='screen'/>
+  <node name="dock_commands_carter3" pkg="fydp_mapping" type="dock_commands.py" respawn="false" args="carter3 $(arg command)" output='screen'/>
+
+</launch>

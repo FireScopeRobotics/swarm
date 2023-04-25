@@ -1,6 +1,8 @@
 <launch>
 
+<!-- Used for visualizing any bag files recorded in this project -->
+
 <!-- Launching Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/launch/carter_gmapping_exploration.rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fydp_mapping)/rviz/carter_exploration.rviz" />
   
 </launch>

@@ -1,9 +1,0 @@
-
-<launch>
-  <arg name="command" />
-
-  <node name="tb_dock_commands_carter1" pkg="fydp_mapping" type="tb_dock_commands.py" respawn="false" args="carter1 $(arg command)" output='screen'/>
-  <node name="tb_dock_commands_carter2" pkg="fydp_mapping" type="tb_dock_commands.py" respawn="false" args="carter2 $(arg command)" output='screen'/>
-  <node name="tb_dock_commands_carter3" pkg="fydp_mapping" type="tb_dock_commands.py" respawn="false" args="carter3 $(arg command)" output='screen'/>
-
-</launch>

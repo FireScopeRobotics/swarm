@@ -1,0 +1,22 @@
+<launch>
+
+  <param name="/use_sim_time" value="false"/>
+
+  <arg name="robot1" value="carter1" />
+  <arg name="robot2" value="carter2" />
+  <arg name="robot3" value="carter3" />
+
+<!-- MOVE_BASE -->
+  <include file="$(find fydp_mapping)/launch/move_base_individual.launch" >
+    <arg name="robot_name" value="$(arg robot1)" />
+  </include>
+  
+  <include file="$(find fydp_mapping)/launch/move_base_individual.launch" >
+    <arg name="robot_name" value="$(arg robot2)" />
+  </include>
+  
+  <include file="$(find fydp_mapping)/launch/move_base_individual.launch" >
+    <arg name="robot_name" value="$(arg robot3)" />
+  </include>
+
+</launch>
