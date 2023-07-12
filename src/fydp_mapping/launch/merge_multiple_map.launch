@@ -3,12 +3,16 @@
   <arg name="robot2" default="carter2"/>
   <arg name="robot3" default="carter3"/>
 
+  <!-- Clear the each robot's pose from the map to reduce noise -->
   <node pkg="fydp_mapping" type="clear_robot_pose_map.py" respawn="true" name="fydp_clear_robot_pose_map" output="screen">
   </node>
+  <!-- Generates a inflated global merged map for use in navigation -->
   <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam_inflated" output="screen">
     <param name="map_merge_topic" value="/map_merge_topic"/>
     <param name="costmap_sub_topic" value="move_base/global_costmap/costmap"/>
   </node>
+
+  <!-- Creates a global merged map for display purposes -->
   <node pkg="fydp_mapping" type="merge_map_slam.py" respawn="true" name="merge_map_slam" output="screen">
     <param name="map_merge_topic" value="/map_merge_topic_thin"/>
     <param name="costmap_sub_topic" value="map"/>
@@ -19,7 +23,7 @@
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_tf_broadcaster" args="0 0 0 0 0 0 /map /carter3/map 100"/>
   <node pkg="tf" type="static_transform_publisher" name="map_merge_tf_broadcaster" args="0 0 0 0 0 0 map map_merge_frame 100"/>
 
-  <!--SET ROBOT INITIAL POSES -->
+  <!--SET ROBOT INITIAL GROUND TRUTH POSES -->
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot1)_odom_broadcaster"  args="0 0 0 1.57 0 0  /$(arg robot1)/map  /$(arg robot1)/odom 100"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot2)_odom_broadcaster" args="-1.3 0 0 1.57 0 0 /$(arg robot2)/map /$(arg robot2)/odom 100"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg robot3)_odom_broadcaster" args="-2.8 0 0 1.57 0 0 /$(arg robot3)/map /$(arg robot3)/odom 100"/>

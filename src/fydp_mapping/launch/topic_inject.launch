@@ -1,6 +1,7 @@
 
 <launch>
 
+  <!-- Remaps namespaces of frames from dockers -->
   <node name="topic_inject_carter1" pkg="fydp_mapping" type="topic_inject.py" respawn="false" args="carter1"/>
   <node name="topic_inject_carter2" pkg="fydp_mapping" type="topic_inject.py" respawn="false" args="carter2"/>
   <node name="topic_inject_carter3" pkg="fydp_mapping" type="topic_inject.py" respawn="false" args="carter3"/>

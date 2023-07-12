@@ -1,5 +1,5 @@
 <launch>
-
+  <!-- Run SLAM toolbox for generating map for each robot -->
   <node pkg="slam_toolbox" type="sync_slam_toolbox_node" name="slam_toolbox1" output="screen">
     <rosparam command="load" file="$(find fydp_mapping)/configuration_files/slam_config1.yaml" />
     <remap from="map" to="/carter1/map"/>

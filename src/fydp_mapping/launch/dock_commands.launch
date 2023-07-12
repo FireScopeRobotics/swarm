@@ -1,5 +1,6 @@
 
 <launch>
+  <!-- Run for docking and un-docking multiple robots-->
   <arg name="command" />
 
   <node name="dock_commands_carter1" pkg="fydp_mapping" type="dock_commands.py" respawn="false" args="carter1 $(arg command)" output='screen'/>
